@@ -5,3 +5,4 @@
 dataset/
 img_align_celeba/
 CelebA/
+*.npy
