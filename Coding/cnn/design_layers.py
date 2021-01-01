@@ -136,17 +136,9 @@ class OpLy:
       layers.Dense(2, activation='softmax', name='op'),
     ], 'output_layer')
 
-def testModels(cnn, dnn, op, name, input_shape):
+def getModels(cnn, dnn, op, name, input_shape):
   return keras.Sequential([keras.Input(shape=input_shape), cnn(), dnn(), op()], name)
 
-def testModels2(cnn, dnn, op, name, input_shape):
+def getModels2(cnn, dnn, op, name, input_shape):
   model=keras.Sequential([keras.Input(shape=input_shape), cnn(), dnn(), op()], name)
   return model.summary()
-
-nameModel=['C'+str(math.floor(i/2+1))+str(i%2+1)+'D'+str(math.floor(j/2+1))+str(j%2+1) for i in range(0,6) for j in range(0,6)]
-cnnMethods=[method for method in dir(CnnLys)[-6:]]
-dnnMethods=[method for method in dir(DnnLys)[-6:]]
-candidateModels=[testModels(getattr(CnnLys, layers[0]), getattr(DnnLys, layers[1]), OpLy.lydSfm, name, input_shape) for layers,name in zip([(i,j) for i in cnnMethods for j in dnnMethods], nameModel)]
-candidateCNN=[model.layers[0].summary for model in candidateModels]
-candidateDNN=[model.layers[1].summary for model in candidateModels]
-candidateModels
