@@ -27,8 +27,8 @@ history=model.fit(x, y, batch_size=batch_size, epochs=epochs, validation_split=0
 ## root to save
 root_model_save='Coding/data/model/lipstick'
 # save it
-cnnSave(model, history, root_model_save, 'lipstick_dropout')
+cnnSave(model, history, root_model_save, 'model_name')
 # delete the objects
 del model, history
 # load for future use
-model,history=cnnLoad(root_model_save, 'lipstick_dropout')
+model,history=cnnLoad(root_model_save, 'model_name')
