@@ -1,6 +1,7 @@
 # retrieve one attribute for two categorical training
 def cnnAttr(df, attrs):
   return keras.utils.to_categorical(np.asarray((df[attrs]+1)/2), 2)
+
 # # examples
 # df_attr = pd.read_csv('dataset/list_attr_celeba.csv') # 40 attributes
 # y=cnnAttr(df_attr, 'Wearing_Lipstick')
@@ -9,6 +10,7 @@ def cnnAttr(df, attrs):
 
 # save Sequential model and its History object
 def cnnSave(model, history, root, name):
+    os.makedirs(root)
     rn=root+'/'+name
     model.save(rn+'.h5')
     df=pd.DataFrame.from_dict(history.history)
@@ -21,6 +23,7 @@ def cnnLoad(root, name):
     model=keras.models.load_model(rn+'.h5')
     history=pd.read_pickle(rn+'.pkl')
     return model, history
+
 # # examples
 # model=keras.Sequential([...], 'model_name')
 # history=model.fit(x, y, batch_size=batch_size, epochs=epochs, validation_split=0.1)
@@ -32,3 +35,8 @@ def cnnLoad(root, name):
 # del model, history
 # # load for future use
 # model,history=cnnLoad(root_model_save, 'model_name')
+
+# model
+# history=model.fit(x,y, batch_size=batch_size, epochs=epochs, validation_split=0.1)
+# cnnSave(model, history, 'Testing/a1/a2', 'name')
+# cnnSave(model, history, 'Testing/b1/b2', 'name')
