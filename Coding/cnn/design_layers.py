@@ -149,94 +149,9 @@ nameModel=['C'+str(math.floor(i/2+1))+str(i%2+1)+'D'+str(math.floor(j/2+1))+str(
 cnnMethods=[method for method in dir(CnnLys)[-6:]]
 dnnMethods=[method for method in dir(DnnLys)[-6:]]
 candidateModels=[testModels(getattr(CnnLys, layers[0]), getattr(DnnLys, layers[1]), OpLy.lydSfm, name, input_shape) for layers,name in zip([(i,j) for i in cnnMethods for j in dnnMethods], nameModel)]
-candidateModels=[testModels2(getattr(CnnLys, layers[0]), getattr(DnnLys, layers[1]), OpLy.lydSfm, name, input_shape) for layers,name in zip([(i,j) for i in cnnMethods for j in dnnMethods], nameModel)]
-
+candidateCNN=[model.layers[0].summary for model in candidateModels]
+candidateDNN=[model.layers[1].summary for model in candidateModels]
 candidateModels
-
-testModels(getattr(CnnLys, cnnMethods[0]), getattr(DnnLys, dnnMethods[0]), OpLy.lydSfm, nameModel[0], input_shape)
-testModels(getattr(CnnLys, cnnMethods[0]), getattr(DnnLys, dnnMethods[1]), OpLy.lydSfm, nameModel[1], input_shape)
-testModels(getattr(CnnLys, cnnMethods[0]), getattr(DnnLys, dnnMethods[2]), OpLy.lydSfm, nameModel[2], input_shape)
-testModels(getattr(CnnLys, cnnMethods[0]), getattr(DnnLys, dnnMethods[3]), OpLy.lydSfm, nameModel[3], input_shape)
-testModels(getattr(CnnLys, cnnMethods[0]), getattr(DnnLys, dnnMethods[4]), OpLy.lydSfm, nameModel[4], input_shape)
-testModels(getattr(CnnLys, cnnMethods[0]), getattr(DnnLys, dnnMethods[5]), OpLy.lydSfm, nameModel[5], input_shape)
-
-testModels(getattr(CnnLys, cnnMethods[1]), getattr(DnnLys, dnnMethods[0]), OpLy.lydSfm, nameModel[6], input_shape)
-testModels(getattr(CnnLys, cnnMethods[1]), getattr(DnnLys, dnnMethods[1]), OpLy.lydSfm, nameModel[7], input_shape)
-testModels(getattr(CnnLys, cnnMethods[1]), getattr(DnnLys, dnnMethods[2]), OpLy.lydSfm, nameModel[8], input_shape)
-testModels(getattr(CnnLys, cnnMethods[1]), getattr(DnnLys, dnnMethods[3]), OpLy.lydSfm, nameModel[9], input_shape)
-testModels(getattr(CnnLys, cnnMethods[1]), getattr(DnnLys, dnnMethods[4]), OpLy.lydSfm, nameModel[10], input_shape)
-testModels(getattr(CnnLys, cnnMethods[1]), getattr(DnnLys, dnnMethods[5]), OpLy.lydSfm, nameModel[11], input_shape)
-
-testModels(getattr(CnnLys, cnnMethods[2]), getattr(DnnLys, dnnMethods[0]), OpLy.lydSfm, nameModel[12], input_shape)
-testModels(getattr(CnnLys, cnnMethods[2]), getattr(DnnLys, dnnMethods[1]), OpLy.lydSfm, nameModel[13], input_shape)
-testModels(getattr(CnnLys, cnnMethods[2]), getattr(DnnLys, dnnMethods[2]), OpLy.lydSfm, nameModel[14], input_shape)
-testModels(getattr(CnnLys, cnnMethods[2]), getattr(DnnLys, dnnMethods[3]), OpLy.lydSfm, nameModel[15], input_shape)
-testModels(getattr(CnnLys, cnnMethods[2]), getattr(DnnLys, dnnMethods[4]), OpLy.lydSfm, nameModel[16], input_shape)
-testModels(getattr(CnnLys, cnnMethods[2]), getattr(DnnLys, dnnMethods[5]), OpLy.lydSfm, nameModel[17], input_shape)
-
-testModels(getattr(CnnLys, cnnMethods[3]), getattr(DnnLys, dnnMethods[0]), OpLy.lydSfm, nameModel[18], input_shape)
-testModels(getattr(CnnLys, cnnMethods[3]), getattr(DnnLys, dnnMethods[1]), OpLy.lydSfm, nameModel[19], input_shape)
-testModels(getattr(CnnLys, cnnMethods[3]), getattr(DnnLys, dnnMethods[2]), OpLy.lydSfm, nameModel[20], input_shape)
-testModels(getattr(CnnLys, cnnMethods[3]), getattr(DnnLys, dnnMethods[3]), OpLy.lydSfm, nameModel[21], input_shape)
-testModels(getattr(CnnLys, cnnMethods[3]), getattr(DnnLys, dnnMethods[4]), OpLy.lydSfm, nameModel[22], input_shape)
-testModels(getattr(CnnLys, cnnMethods[3]), getattr(DnnLys, dnnMethods[5]), OpLy.lydSfm, nameModel[23], input_shape)
-
-testModels(getattr(CnnLys, cnnMethods[4]), getattr(DnnLys, dnnMethods[0]), OpLy.lydSfm, nameModel[24], input_shape)
-testModels(getattr(CnnLys, cnnMethods[4]), getattr(DnnLys, dnnMethods[1]), OpLy.lydSfm, nameModel[25], input_shape)
-testModels(getattr(CnnLys, cnnMethods[4]), getattr(DnnLys, dnnMethods[2]), OpLy.lydSfm, nameModel[26], input_shape)
-testModels(getattr(CnnLys, cnnMethods[4]), getattr(DnnLys, dnnMethods[3]), OpLy.lydSfm, nameModel[27], input_shape)
-testModels(getattr(CnnLys, cnnMethods[4]), getattr(DnnLys, dnnMethods[4]), OpLy.lydSfm, nameModel[28], input_shape)
-testModels(getattr(CnnLys, cnnMethods[4]), getattr(DnnLys, dnnMethods[5]), OpLy.lydSfm, nameModel[29], input_shape)
-
-testModels(getattr(CnnLys, cnnMethods[5]), getattr(DnnLys, dnnMethods[0]), OpLy.lydSfm, nameModel[30], input_shape)
-testModels(getattr(CnnLys, cnnMethods[5]), getattr(DnnLys, dnnMethods[1]), OpLy.lydSfm, nameModel[31], input_shape)
-testModels(getattr(CnnLys, cnnMethods[5]), getattr(DnnLys, dnnMethods[2]), OpLy.lydSfm, nameModel[32], input_shape)
-testModels(getattr(CnnLys, cnnMethods[5]), getattr(DnnLys, dnnMethods[3]), OpLy.lydSfm, nameModel[33], input_shape)
-testModels(getattr(CnnLys, cnnMethods[5]), getattr(DnnLys, dnnMethods[4]), OpLy.lydSfm, nameModel[34], input_shape)
-testModels(getattr(CnnLys, cnnMethods[5]), getattr(DnnLys, dnnMethods[5]), OpLy.lydSfm, nameModel[35], input_shape)
-
-# testModels2
-testModels2(getattr(CnnLys, cnnMethods[0]), getattr(DnnLys, dnnMethods[0]), OpLy.lydSfm, nameModel[0], input_shape).layers[0].summary()
-testModels2(getattr(CnnLys, cnnMethods[0]), getattr(DnnLys, dnnMethods[1]), OpLy.lydSfm, nameModel[1], input_shape).layers[0].summary()
-testModels2(getattr(CnnLys, cnnMethods[0]), getattr(DnnLys, dnnMethods[2]), OpLy.lydSfm, nameModel[2], input_shape).layers[0].summary()
-testModels2(getattr(CnnLys, cnnMethods[0]), getattr(DnnLys, dnnMethods[3]), OpLy.lydSfm, nameModel[3], input_shape).layers[0].summary()
-testModels2(getattr(CnnLys, cnnMethods[0]), getattr(DnnLys, dnnMethods[4]), OpLy.lydSfm, nameModel[4], input_shape).layers[0].summary()
-testModels2(getattr(CnnLys, cnnMethods[0]), getattr(DnnLys, dnnMethods[5]), OpLy.lydSfm, nameModel[5], input_shape).layers[0].summary()
-
-testModels2(getattr(CnnLys, cnnMethods[1]), getattr(DnnLys, dnnMethods[0]), OpLy.lydSfm, nameModel[6], input_shape).layers[0].summary()
-testModels2(getattr(CnnLys, cnnMethods[1]), getattr(DnnLys, dnnMethods[1]), OpLy.lydSfm, nameModel[7], input_shape).layers[0].summary()
-testModels2(getattr(CnnLys, cnnMethods[1]), getattr(DnnLys, dnnMethods[2]), OpLy.lydSfm, nameModel[8], input_shape).layers[0].summary()
-testModels2(getattr(CnnLys, cnnMethods[1]), getattr(DnnLys, dnnMethods[3]), OpLy.lydSfm, nameModel[9], input_shape).layers[0].summary()
-testModels2(getattr(CnnLys, cnnMethods[1]), getattr(DnnLys, dnnMethods[4]), OpLy.lydSfm, nameModel[10], input_shape).layers[0].summary()
-testModels2(getattr(CnnLys, cnnMethods[1]), getattr(DnnLys, dnnMethods[5]), OpLy.lydSfm, nameModel[11], input_shape).layers[0].summary()
-
-testModels2(getattr(CnnLys, cnnMethods[2]), getattr(DnnLys, dnnMethods[0]), OpLy.lydSfm, nameModel[12], input_shape).layers[0].summary()
-testModels2(getattr(CnnLys, cnnMethods[2]), getattr(DnnLys, dnnMethods[1]), OpLy.lydSfm, nameModel[13], input_shape).layers[0].summary()
-testModels2(getattr(CnnLys, cnnMethods[2]), getattr(DnnLys, dnnMethods[2]), OpLy.lydSfm, nameModel[14], input_shape).layers[0].summary()
-testModels2(getattr(CnnLys, cnnMethods[2]), getattr(DnnLys, dnnMethods[3]), OpLy.lydSfm, nameModel[15], input_shape).layers[0].summary()
-testModels2(getattr(CnnLys, cnnMethods[2]), getattr(DnnLys, dnnMethods[4]), OpLy.lydSfm, nameModel[16], input_shape).layers[0].summary()
-testModels2(getattr(CnnLys, cnnMethods[2]), getattr(DnnLys, dnnMethods[5]), OpLy.lydSfm, nameModel[17], input_shape).layers[0].summary()
-
-testModels2(getattr(CnnLys, cnnMethods[3]), getattr(DnnLys, dnnMethods[0]), OpLy.lydSfm, nameModel[18], input_shape).layers[0].summary()
-testModels2(getattr(CnnLys, cnnMethods[3]), getattr(DnnLys, dnnMethods[1]), OpLy.lydSfm, nameModel[19], input_shape).layers[0].summary()
-testModels2(getattr(CnnLys, cnnMethods[3]), getattr(DnnLys, dnnMethods[2]), OpLy.lydSfm, nameModel[20], input_shape).layers[0].summary()
-testModels2(getattr(CnnLys, cnnMethods[3]), getattr(DnnLys, dnnMethods[3]), OpLy.lydSfm, nameModel[21], input_shape).layers[0].summary()
-testModels2(getattr(CnnLys, cnnMethods[3]), getattr(DnnLys, dnnMethods[4]), OpLy.lydSfm, nameModel[22], input_shape).layers[0].summary()
-testModels2(getattr(CnnLys, cnnMethods[3]), getattr(DnnLys, dnnMethods[5]), OpLy.lydSfm, nameModel[23], input_shape).layers[0].summary()
-
-testModels2(getattr(CnnLys, cnnMethods[4]), getattr(DnnLys, dnnMethods[0]), OpLy.lydSfm, nameModel[24], input_shape).layers[0].summary()
-testModels2(getattr(CnnLys, cnnMethods[4]), getattr(DnnLys, dnnMethods[1]), OpLy.lydSfm, nameModel[25], input_shape).layers[0].summary()
-testModels2(getattr(CnnLys, cnnMethods[4]), getattr(DnnLys, dnnMethods[2]), OpLy.lydSfm, nameModel[26], input_shape).layers[0].summary()
-testModels2(getattr(CnnLys, cnnMethods[4]), getattr(DnnLys, dnnMethods[3]), OpLy.lydSfm, nameModel[27], input_shape).layers[0].summary()
-testModels2(getattr(CnnLys, cnnMethods[4]), getattr(DnnLys, dnnMethods[4]), OpLy.lydSfm, nameModel[28], input_shape).layers[0].summary()
-testModels2(getattr(CnnLys, cnnMethods[4]), getattr(DnnLys, dnnMethods[5]), OpLy.lydSfm, nameModel[29], input_shape).layers[0].summary()
-
-testModels2(getattr(CnnLys, cnnMethods[5]), getattr(DnnLys, dnnMethods[0]), OpLy.lydSfm, nameModel[30], input_shape).layers[0].summary()
-testModels2(getattr(CnnLys, cnnMethods[5]), getattr(DnnLys, dnnMethods[1]), OpLy.lydSfm, nameModel[31], input_shape).layers[0].summary()
-testModels2(getattr(CnnLys, cnnMethods[5]), getattr(DnnLys, dnnMethods[2]), OpLy.lydSfm, nameModel[32], input_shape).layers[0].summary()
-testModels2(getattr(CnnLys, cnnMethods[5]), getattr(DnnLys, dnnMethods[3]), OpLy.lydSfm, nameModel[33], input_shape).layers[0].summary()
-testModels2(getattr(CnnLys, cnnMethods[5]), getattr(DnnLys, dnnMethods[4]), OpLy.lydSfm, nameModel[34], input_shape).layers[0].summary()
-testModels2(getattr(CnnLys, cnnMethods[5]), getattr(DnnLys, dnnMethods[5]), OpLy.lydSfm, nameModel[35], input_shape).layers[0].summary()
 
 
 [layers, name for layers,name in zip([(i,j) for i in cnnMethods for j in dnnMethods], nameModel)]
