@@ -8,8 +8,8 @@ def plotImages(img_file_names, nrow, ncol):
     plt.subplots_adjust(wspace=0,hspace=0)
     plt.show()
     plt.clf()
-
-plotImages(img_index,4,10)
+# # examples
+# plotImages(img_index,4,10)
 
 def showPretreatImage(imgs, nrow, ncol):
     k = [(i,j) for i in range(0,nrow) for j in range(0,ncol)]
@@ -28,11 +28,14 @@ def pretreatImage(imgs, target_size):
         photos.append(photo)
     return np.asarray(photos, dtype='uint8')/255
 
+## examples
 # photos=pretreatImage(img_index[0:40], (218,178))
 # photos=pretreatImage(img_index[0:40], (32,26))
 # showPretreatImage(photos,4,10)
-
-x=pretreatImage(img_index, (36,26))
-# np.save('Coding/data/img_x_36_26',x)
-x=pretreatImage(img_index, (32,26))
-# np.save('Coding/data/img_x_32_26',x)
+# 
+# x=pretreatImage(img_index, (36,26))
+# # np.save('Coding/data/img_x_36_26',x)
+# x=pretreatImage(img_index, (32,26))
+# # np.save('Coding/data/img_x_32_26',x)
+x=pretreatImage(img_index, (26,32))
+np.save('Coding/data/img_x_26_32',x)
