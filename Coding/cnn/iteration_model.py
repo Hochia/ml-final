@@ -3,6 +3,7 @@ def itrModel(itr, root, name, model, x, y, batch_size, epochs):
     history=model.fit(x, y, batch_size=batch_size, epochs=epochs, validation_split=0.1, verbose=0)
     root_itr=root+'/'+name+'/itr_'+str(i)
     cnnSave(model, history, root_itr, name)
+    gc.garbage
 
 # # examples
 # # Load data
@@ -23,3 +24,17 @@ def itrModel(itr, root, name, model, x, y, batch_size, epochs):
 #               loss=keras.losses.CategoricalCrossentropy(from_logits=True),
 #               metrics=[keras.metrics.CategoricalAccuracy()])
 # itrModel(20, root_model_save, name, model, x, y, batch_size, 2)
+
+
+def itrSamplingModel(itr, root, name, model, x, y, sampling_size, batch_size, epochs):
+  for i in range(1, itr+1):
+    sp=random.sample(range(0,x.shape[0]), sampling_size)
+    history=model.fit(x[sp,:,:,:], y[sp,:], batch_size=batch_size, epochs=epochs, validation_split=0.1, verbose=0)
+    root_itr=root+'/'+name+'/itr_'+str(i)
+    cnnSave(model, history, root_itr, name)
+    gc.garbage
+
+
+
+
+
