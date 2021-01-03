@@ -22,7 +22,7 @@ plot_performance = function(df) {
     theme(legend.position = "top")
 }
 save_performance = function(file, name, save_root = "performance/population") {
-  csvs = dir(files, pattern = ".csv", full.names = TRUE, recursive = TRUE)
+  csvs = dir(file, pattern = ".csv", full.names = TRUE, recursive = TRUE)
   df = tibble(bind_rows(map(csvs, read.csv)))
   # best performance
   df_best_performance = best_performance(df)
@@ -43,17 +43,17 @@ save_performance = function(file, name, save_root = "performance/population") {
 root = "Coding/data/model"
 files = dir(root, full.names = TRUE)
 save_root = "performance/population"
-save_performance(files[2], name = "Wearing_Lipstick", save_root)
+save_performance(
+  files[str_detect(files, 'Wearing_Lipstick')], 
+  name = "Wearing_Lipstick", 
+  save_root
+)
 
 root = "Coding/data/model_sampling"
 files = dir(root, full.names = TRUE)
 save_root = "performance/sampling"
 save_performance(files[2], name = "Wearing_Lipstick", save_root)
 
-root = "Coding/data/model"
-files = dir(root, full.names = TRUE)
-files[3]
-dir(files[2])
 
 choose_model = function(df, model) {
   df %>% 
@@ -93,4 +93,9 @@ compare_performance = function(file) {
   list(df_top, df_pvalue)
 }
 
-p = compare_performance(files[3])
+root = "Coding/data/model"
+files = dir(root, full.names = TRUE)
+files[3]
+dir(files[str_detect(files, 'Wearing_Lipstick')])
+
+p = compare_performance(files[str_detect(files, 'Wearing_Lipstick')])
