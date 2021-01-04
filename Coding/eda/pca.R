@@ -34,6 +34,7 @@ BK2
 # Basket 3
 BK3 <- BK(CB, 3, c(17, 31))
 BK3
+
 # 圖 特徵值與解釋變異程度
 ggplot(cp_eig[1:10,], aes(dim, cum)) +
   geom_point() +
