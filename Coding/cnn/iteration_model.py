@@ -38,14 +38,3 @@ def itrSamplingModel(itr, root, name, model, x, y, pre_sampling, batch_size, epo
     cnnSave(model, history, root_itr, name)
     gc.garbage
 
-
-sp = itrPreSampling(20, 2000, x)
-
-sp=[]
-for i in range(1, 20+1):
-  sp.append(random.sample(range(0,x.shape[0]), 5))
-len(sp)
-sp[1]
-x[sp[1], :,:,:].shape
-sp=random.sample(range(0,x.shape[0]), 20)
-sp
