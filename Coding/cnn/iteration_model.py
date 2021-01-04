@@ -25,16 +25,27 @@ def itrModel(itr, root, name, model, x, y, batch_size, epochs):
 #               metrics=[keras.metrics.CategoricalAccuracy()])
 # itrModel(20, root_model_save, name, model, x, y, batch_size, 2)
 
-
-def itrSamplingModel(itr, root, name, model, x, y, sampling_size, batch_size, epochs):
+def itrPreSampling(itr, sampling_size, x):
+  sp=[]
   for i in range(1, itr+1):
-    sp=random.sample(range(0,x.shape[0]), sampling_size)
-    history=model.fit(x[sp,:,:,:], y[sp,:], batch_size=batch_size, epochs=epochs, validation_split=0.1, verbose=0)
+    sp.append(random.sample(range(0,x.shape[0]), sampling_size))
+  return sp
+
+def itrSamplingModel(itr, root, name, model, x, y, pre_sampling, batch_size, epochs):
+  for i in range(1, itr+1):
+    history=model.fit(x[pre_sampling[i-1],:,:,:], y[pre_sampling[i-1],:], batch_size=batch_size, epochs=epochs, validation_split=0.1, verbose=0)
     root_itr=root+'/'+name+'/itr_'+str(i)
     cnnSave(model, history, root_itr, name)
     gc.garbage
 
 
+sp = itrPreSampling(20, 2000, x)
 
-
-
+sp=[]
+for i in range(1, 20+1):
+  sp.append(random.sample(range(0,x.shape[0]), 5))
+len(sp)
+sp[1]
+x[sp[1], :,:,:].shape
+sp=random.sample(range(0,x.shape[0]), 20)
+sp
