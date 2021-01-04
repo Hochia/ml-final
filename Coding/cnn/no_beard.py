@@ -27,4 +27,31 @@ for model, name in zip(candidateModels, nameModel):
     gc.collect()
     gc.garbage
 
+# Validate sampling
+# Common parameters
+sampling_size=2000
+iteration=20
+batch_size=20
+epochs=20
+# Set parameters
+img_hw=(36,26)
+input_shape=(*img_hw, 3)
+# Load models
+del candidateModels
+candidateModels=[getModels(getattr(CnnLys, layers[0]), getattr(DnnLys, layers[1]), OpLy.lydSfm, name, input_shape) for layers,name in zip([(i,j) for i in cnnMethods for j in dnnMethods], nameModel)]
+# Model fit
+attr=attrs[24]
+# Saving root
+root_model_save='Coding/data/model_sampling/'+attr+'_36_26'
+# Load data
+y=cnnAttr(df_attr, attr)
+for model, name in zip(candidateModels, nameModel):
+    model.compile(
+        optimizer=keras.optimizers.SGD(),
+        loss=keras.losses.CategoricalCrossentropy(from_logits=True),
+        metrics=[keras.metrics.CategoricalAccuracy()]
+    )
+    itrSamplingModel(iteration, root_model_save, name, model, x, y, sampling_size, batch_size, epochs)
+    gc.collect()
+    gc.garbage
 
