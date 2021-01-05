@@ -194,34 +194,93 @@ summary {
 
 <div id="cnn" class="section level1">
 <h1>CNN</h1>
+<div id="table-of-contents" class="section level2">
+<h2>Table of Contents</h2>
+<ul>
+<li><a href="#introduction">Introduction</a>
+<ul>
+<li><a href="#exploratory-data-analysis">Exploratory Data Analysis</a></li>
+</ul></li>
+<li><a href="#methodology">Methodology</a>
+<ul>
+<li><a href="#i.-cnn-model-for-single-attribute">I. CNN model for single attribute</a></li>
+<li><a href="#ii.-cnn-model-for-multiple-attributes">II. CNN model for multiple attribute</a></li>
+</ul></li>
+<li><a href="#results">Results</a></li>
+<li><a href="#discussions">Discussions</a></li>
+<li><a href="#conclusions">Conclusions</a></li>
+<li><a href="#moreover">Moreover</a></li>
+</ul>
+</div>
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
+<p>Use CNN models to analyze the <strong>CelebFaces Attributes</strong> Dataset.</p>
 <div id="exploratory-data-analysis" class="section level3">
 <h3>Exploratory Data Analysis</h3>
 <ul>
-<li><p>Questions about the data.</p></li>
-<li><p>Visualizing, transforming, and modeling</p></li>
+<li><p>Ratio of each face attribute.</p></li>
+<li><p>Use correlation matrix and PCA to analyze the highly connected face attributes.</p>
+<ul>
+<li>Correlation matrix implies the highly connected attributes.</li>
+<li>PCA implies different aspects of connections in the attributes.</li>
+<li>Demonstrate the PCA loading plots and a table to summarise the study.</li>
+</ul></li>
 </ul>
 </div>
 </div>
 <div id="methodology" class="section level2">
 <h2>Methodology</h2>
-<ul>
-<li>CNN models to be built.
-<ul>
-<li>Using a pretrained convnet</li>
-<li>etc.</li>
-</ul></li>
-<li>Propose a method for choosing the top 5 models in a variety of candidate models.
-<ul>
-<li>Sampling from the original dataset to get the performance in each candidate model.</li>
-<li>Take the advantage of less consumption of time for experiencing the desired models.</li>
-</ul></li>
-<li>Verify this method is applicable.
-<ul>
-<li>Compare the performance of each model which using the whole dataset with which using the sampling one.</li>
-</ul></li>
-</ul>
+<div id="i.-cnn-model-for-single-attribute" class="section level3">
+<h3>I. CNN model for single attribute</h3>
+<ol style="list-style-type: decimal">
+<li>Strategic
+<ol style="list-style-type: lower-alpha">
+<li>Input shape</li>
+<li>Convolutional layer
+<ol style="list-style-type: lower-roman">
+<li>number of block</li>
+<li>number of layers in each block</li>
+<li>dropout</li>
+<li>hyperparameters</li>
+</ol></li>
+<li>Fully connected layer
+<ol style="list-style-type: lower-roman">
+<li>number of layers</li>
+<li>units</li>
+<li>dropout</li>
+</ol></li>
+</ol></li>
+<li>Purpose
+<ol style="list-style-type: lower-alpha">
+<li>Check the effect of the hyperparameters</li>
+<li>Find the best combination of convolutional layer and fully connected layer</li>
+<li>Hint to futher adjust CNN models</li>
+</ol></li>
+<li>Predict the rank of the candidate models
+<ol style="list-style-type: lower-alpha">
+<li>Motivation
+<ol style="list-style-type: lower-roman">
+<li>Time consuming</li>
+<li>Memory consuming</li>
+<li>Highly restricted to PC’s specifications</li>
+<li>Sampling unbiased data is suitable for representing the population</li>
+</ol></li>
+<li>Method
+<ol style="list-style-type: lower-roman">
+<li>Sampling a properly small dataset for model training process</li>
+<li>Use metrics in each epoch to compare the performance with other models</li>
+<li>Hypotheses testing result will suggest the rank of the performance of the candidate models</li>
+</ol></li>
+<li>Validation
+<ol style="list-style-type: lower-roman">
+<li>Whether the proposed rank of the candidate models matches the original dataset training result.</li>
+</ol></li>
+</ol></li>
+</ol>
+</div>
+<div id="ii.-cnn-model-for-multiple-attributes" class="section level3">
+<h3>II. CNN model for multiple attributes</h3>
+</div>
 </div>
 <div id="results" class="section level2">
 <h2>Results</h2>
@@ -234,6 +293,10 @@ summary {
 <ul>
 <li>Including the application of our CNN models</li>
 </ul>
+</div>
+<div id="moreover" class="section level2">
+<h2>Moreover</h2>
+<p>You can review our code and examine our data on <a href="https://github.com/Hochia/ml-final">GitHub</a>.</p>
 </div>
 </div>
 
