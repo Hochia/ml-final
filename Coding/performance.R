@@ -21,15 +21,15 @@ compare_performance = function(file) {
   
   df_pvalue = bind_cols(ls) %>% 
     mutate(model = models, .before = 1)
-  
+
   df_top = df_pvalue %>% 
     group_by(model) %>% 
-    mutate_at(vars(-group_cols()), ~ .x < 0.5) %>% 
+    mutate_at(vars(-group_cols()), ~ .x < 0.05) %>% 
     ungroup() %>%  
     select(-model) %>% 
     summarise_all(sum) %>% 
     pivot_longer(everything(), names_to = "model", values_to = "top") %>% 
-    mutate(top = n() - top) %>% 
+    mutate(top = as.integer(as.factor(n() - top))) %>% 
     arrange(top)
   
   list(df_top, df_pvalue)
@@ -51,7 +51,8 @@ list_performance = function(df) {
 plot_performance = function(df) {
   ggplot(df, aes(index, value)) +
     geom_line(aes(color = setting)) +
-    facet_grid(vars(perform), vars(model), scales = "free_y") +
+    scale_y_continuous(breaks = seq(0, 1, 0.2), limits = c(0, 1)) +
+    facet_grid(vars(perform), vars(model)) +
     guides(color = guide_legend(title = NULL)) +
     labs(x = "epochs", y = NULL) +
     theme_test() +
@@ -63,7 +64,8 @@ save_performance = function(file, name, save_root = "performance/population") {
   # best performance
   df_best_performance = best_performance(df)
   # list performance
-  df_list_performance = list_performance(df)
+  df_list_performance = list_performance(df) %>% 
+    mutate(model = factor(model, df_best_performance$model))
   # top 5 performance
   df_top5_performance = df_list_performance %>% 
     filter(model %in% df_best_performance$model[1:5])
@@ -78,14 +80,14 @@ save_performance = function(file, name, save_root = "performance/population") {
 plot_sampling_performance = function(df) {
   ggplot(df, aes(index, value)) +
     geom_line(aes(color = setting)) +
-    facet_grid(vars(perform), vars(model), scales = "free_y") +
+    scale_y_continuous(breaks = seq(0, 1, 0.2), limits = c(0, 1)) +
+    facet_grid(vars(perform), vars(model)) +
     guides(color = guide_legend(title = NULL)) +
-    labs(x = "iteration", y = NULL) +
+    labs(x = "sampling process", y = NULL) +
     theme_test() +
     theme(legend.position = "top")
 }
 save_sampling_performance = function(file, name, save_root = "performance/population") {
-  browser()
   csvs = dir(file, pattern = ".csv", full.names = TRUE, recursive = TRUE)
   df = tibble(bind_rows(map(csvs, read.csv))) %>% 
     filter(index == 19) %>% 
@@ -97,7 +99,8 @@ save_sampling_performance = function(file, name, save_root = "performance/popula
   # best performance
   ls_best_performance = compare_performance(file)
   # list performance
-  df_list_performance = list_performance(df)
+  df_list_performance = list_performance(df) %>% 
+    mutate(model = factor(model, ls_best_performance[[1]]$model))
   # top 5 performance
   df_top5_performance = df_list_performance %>% 
     filter(model %in% ls_best_performance[[1]]$model[1:5])
@@ -114,8 +117,13 @@ root = "Coding/data/model"
 files = dir(root, full.names = TRUE)
 save_root = "performance/population"
 save_performance(
-  files[str_detect(files, 'Wearing_Lipstick')],
+  files[str_detect(files, "Wearing_Lipstick")],
   name = "Wearing_Lipstick",
+  save_root
+)
+save_performance(
+  files[str_detect(files, "No_Beard")],
+  name = "No_Beard",
   save_root
 )
 
@@ -123,8 +131,47 @@ root = "Coding/data/model_sampling"
 files = dir(root, full.names = TRUE)
 save_root = "performance/sampling"
 save_sampling_performance(
-  files[str_detect(files, 'Wearing_Lipstick')],
+  files[str_detect(files, "Wearing_Lipstick")],
   name = "Wearing_Lipstick",
   save_root
 )
-compare_performance(files[str_detect(files, 'Wearing_Lipstick')])
+save_sampling_performance(
+  files[str_detect(files, "No_Beard")],
+  name = "No_Beard",
+  save_root
+)
+p=compare_performance(files[str_detect(files, "Wearing_Lipstick")])
+View(p[[1]])
+
+# 
+# csvs = dir(files[1], pattern = ".csv", full.names = TRUE, recursive = TRUE)
+# df = tibble(bind_rows(map(csvs, read.csv))) %>% 
+#   filter(index == 19) %>% 
+#   select(model, everything()) %>% 
+#   group_by(model) %>% 
+#   arrange(val_categorical_accuracy) %>% 
+#   mutate(index = row_number()) %>% 
+#   ungroup()
+# # best performance
+# ls_best_performance = compare_performance(files[1])
+# # list performance
+# df_list_performance = list_performance(df) %>% 
+#   mutate(model = factor(model, ls_best_performance[[1]]$model))
+# # top 5 performance
+# df_top5_performance = df_list_performance %>% 
+#   filter(model %in% ls_best_performance[[1]]$model[1:5])
+# ## all models plot
+# plt = plot_sampling_performance(df_list_performance)
+# ggsave(str_c(save_root, paste0(name, ".png"), sep = "/"), plt, width = 100, height = 10, units = "cm")
+# 
+# 
+# ggplot(df_top5_performance, aes(index, value)) +
+#   geom_line(aes(color = setting)) +
+#   scale_y_continuous(breaks = seq(0, 1, 0.2), limits = c(0, 1)) +
+#   facet_grid(vars(perform), vars(model)) +
+#   guides(color = guide_legend(title = NULL)) +
+#   labs(x = "sampling process", y = NULL) +
+#   theme_test() +
+#   theme(legend.position = "top")
+# 
+# 
