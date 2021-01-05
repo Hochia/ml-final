@@ -70,3 +70,59 @@ plot(network,
      vertex.label.dist = 0,
      vertex.frame.color="transparent",
 )
+
+
+
+# PCA table
+PCAtable = as_tibble(CP$var$cor) %>% 
+  mutate(Attribute = str_replace_all(rownames(CP$var$cor), "_", " ")) %>% 
+  select(Attribute, everything())
+
+PCAtable
+
+# Loading plot
+plot_PCALoading = function(PCALoading, PC) {
+  PCALoading %>% 
+    filter(PC == !!PC) %>% 
+    arrange(abs(Loading)) %>% 
+    mutate(Attribute = factor(Attribute, .$Attribute)) %>% 
+    ggplot(aes(Attribute, abs(Loading), color = pn, fill = pn)) +
+    geom_col() +
+    scale_fill_manual(
+      name = NULL,
+      breaks = c("a", "b"),
+      labels = c("Positive", "Negative"), 
+      values = c("#D6BEFA", "#F5E3C9")
+    ) +
+    scale_color_manual(
+      name = NULL,
+      breaks = c("a", "b"),
+      labels = c("Positive", "Negative"),
+      values = c("#6504BA", "#FF8800")
+    ) +
+    scale_y_continuous(
+      breaks = seq(0, 1, 0.2),
+      limits = c(0, 1)
+    ) +
+    coord_flip() +
+    labs(x = NULL, y = NULL, title = str_c("PC ", PC)) +
+    theme_test() +
+    theme(legend.position="right")
+}
+
+PCALoading = PCAtable %>% 
+  pivot_longer(-Attribute, names_to = "PC", values_to = "Loading") %>% 
+  mutate(PC = as.double(str_replace(PC, "Dim.", "")), pn = case_when(Loading > 0 ~ "a", TRUE ~ "b"))
+
+loading = map(1:4, ~ plot_PCALoading(PCALoading, .x))
+plt = loading[[1]] + loading[[2]] + loading[[3]] + loading[[4]] + plot_layout(ncol = 2, guides = "collect")
+ggsave("plot/pca_loading_plot.png", plt, width = 30, height = 25, units = "cm")
+
+# Deprecated
+sum(CP$var$cor[,1])
+sum(CP$ind$cor[,1])
+pp = sweep(CP$var$coord,2,sqrt(CP$eig[1:ncol(CP$var$coord),1]),FUN="/")
+typeof(pp)
+class(pp)
+as_tibble(pp) %>% 
+  summarise_all(sum)
