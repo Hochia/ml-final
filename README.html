@@ -203,8 +203,8 @@ summary {
 </ul></li>
 <li><a href="#methodology">Methodology</a>
 <ul>
-<li><a href="#i.-cnn-model-for-single-attribute">I. CNN model for single attribute</a></li>
-<li><a href="#ii.-cnn-model-for-multiple-attributes">II. CNN model for multiple attribute</a></li>
+<li><a href="#i-cnn-model-for-single-attribute">I. CNN model for single attribute</a></li>
+<li><a href="#ii-cnn-model-for-multiple-attributes">II. CNN model for multiple attribute</a></li>
 </ul></li>
 <li><a href="#results">Results</a></li>
 <li><a href="#discussions">Discussions</a></li>
@@ -233,45 +233,45 @@ summary {
 <div id="i.-cnn-model-for-single-attribute" class="section level3">
 <h3>I. CNN model for single attribute</h3>
 <ol style="list-style-type: decimal">
-<li>Strategic
+<li><p>Strategic</p>
 <ol style="list-style-type: lower-alpha">
-<li>Input shape</li>
-<li>Convolutional layer
+<li><p>Input shape</p></li>
+<li><p>Convolutional layer</p>
 <ol style="list-style-type: lower-roman">
-<li>number of block</li>
-<li>number of layers in each block</li>
-<li>dropout</li>
-<li>hyperparameters</li>
+<li><p>number of block</p></li>
+<li><p>number of layers in each block</p></li>
+<li><p>dropout</p></li>
+<li><p>hyperparameters</p></li>
 </ol></li>
-<li>Fully connected layer
+<li><p>Fully connected layer</p>
 <ol style="list-style-type: lower-roman">
-<li>number of layers</li>
-<li>units</li>
-<li>dropout</li>
+<li><p>number of layers</p></li>
+<li><p>units</p></li>
+<li><p>dropout</p></li>
 </ol></li>
 </ol></li>
-<li>Purpose
+<li><p>Purpose</p>
 <ol style="list-style-type: lower-alpha">
-<li>Check the effect of the hyperparameters</li>
-<li>Find the best combination of convolutional layer and fully connected layer</li>
-<li>Hint to futher adjust CNN models</li>
+<li><p>Check the effect of the hyperparameters</p></li>
+<li><p>Find the best combination of convolutional layer and fully connected layer</p></li>
+<li><p>Hint to futher adjust CNN models</p></li>
 </ol></li>
-<li>Predict the rank of the candidate models
+<li><p>Predict the rank of the candidate models</p>
 <ol style="list-style-type: lower-alpha">
-<li>Motivation
+<li><p>Motivation</p>
 <ol style="list-style-type: lower-roman">
-<li>Time consuming</li>
-<li>Memory consuming</li>
-<li>Highly restricted to PC’s specifications</li>
-<li>Sampling unbiased data is suitable for representing the population</li>
+<li><p>Time consuming</p></li>
+<li><p>Memory consuming</p></li>
+<li><p>Highly restricted to PC’s specifications</p></li>
+<li><p>Sampling unbiased data is suitable for representing the population</p></li>
 </ol></li>
-<li>Method
+<li><p>Method</p>
 <ol style="list-style-type: lower-roman">
-<li>Sampling a properly small dataset for model training process</li>
-<li>Use metrics in each epoch to compare the performance with other models</li>
-<li>Hypotheses testing result will suggest the rank of the performance of the candidate models</li>
+<li><p>Sampling a properly small dataset for model training process</p></li>
+<li><p>Use metrics in each epoch to compare the performance with other models</p></li>
+<li><p>Hypotheses testing result will suggest the rank of the performance of the candidate models</p></li>
 </ol></li>
-<li>Validation
+<li><p>Validation</p>
 <ol style="list-style-type: lower-roman">
 <li>Whether the proposed rank of the candidate models matches the original dataset training result.</li>
 </ol></li>
@@ -284,6 +284,14 @@ summary {
 </div>
 <div id="results" class="section level2">
 <h2>Results</h2>
+<div id="i.-single-attribute" class="section level3">
+<h3>I. Single attribute</h3>
+<p>There are 83.49% faces without beard and there are 47.24% faces wearing lipstick.</p>
+<p>In case of using 200k images for training models, we observe the performance of the accuracies according to all candidate models.</p>
+<p>The training accuracies and the validation accuracies of all candidate models for no beard are almost the same as 0.8329 and 0.8531, respectively.</p>
+<p>The minimum and maximum of the training accuracies of all candidate models are 0.8484 and 0.9288, respectively. As for the validation accuracy varies from 0.8699 to 0.9227.</p>
+<p>In case of using sampling 2k images for the process of training model, we use unpaired two sample t-test for testing if the performance of each model has significantly difference from the others.</p>
+</div>
 </div>
 <div id="discussions" class="section level2">
 <h2>Discussions</h2>
