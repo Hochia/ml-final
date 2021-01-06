@@ -74,11 +74,44 @@ plot(network,
 
 
 # PCA table
+CP <- FactoMineR::PCA(df_attr[, -1], scale.unit = TRUE, ncp = 10, graph = TRUE)
+cp_eig = as_tibble(CP$eig, rownames = "dim") %>% 
+  mutate(dim = as.numeric(str_replace(dim, "comp ", "")))
+names(cp_eig) <- c("dim", "egv", "var", "cum")
+
+PCAtable_var = cp_eig %>% 
+  mutate(egv_cum = str_c(round(egv, 3), " (", round(cum, 2), "%)")) %>% 
+  select(dim, egv_cum)
+
 PCAtable = as_tibble(CP$var$cor) %>% 
   mutate(Attribute = str_replace_all(rownames(CP$var$cor), "_", " ")) %>% 
   select(Attribute, everything())
 
-PCAtable
+PCAtable_explain = PCAtable %>% 
+  pivot_longer(-Attribute, names_to = "PC", values_to = "Loading") %>% 
+  mutate(PC = as.double(str_replace(PC, "Dim.", ""))) %>% 
+  filter(
+    (PC == 1 & abs(Loading) > 0.50) |
+    (PC == 2 & abs(Loading) > 0.45) |
+    (PC == 3 & abs(Loading) > 0.45) |
+    (PC == 4 & abs(Loading) > 0.30)
+  ) %>% 
+  arrange(PC, desc(abs(Loading))) %>% 
+  mutate(Factor = case_when(
+    PC == 1 ~ "Feminine",
+    PC == 2 ~ "Smiling",
+    PC == 3 ~ "Bearded",
+    PC == 4 ~ "Masculine",
+    TRUE ~ ""
+  )) %>% 
+  left_join(PCAtable_var, c(PC = "dim")) %>% 
+  select(PC, Factor, Attribute, Loading, egv_cum)
+
+PCAtable_explain
+# write_csv(PCAtable_explain, file = "table/PCA_loading.csv")
+
+PCAtable_explain %>% 
+  kbl(digits = 2, align = c('l', 'r', 'r', 'l', 'l'), col.names = c("Attribute", "PC", "Loading", ""))
 
 # Loading plot
 plot_PCALoading = function(PCALoading, PC) {
