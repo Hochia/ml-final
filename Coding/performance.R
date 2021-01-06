@@ -194,7 +194,12 @@ sCh = save_sampling_performance(
 WL[[1]]
 sWL[[1]]
 
-
-
+tblWL = left_join(WL[[1]], sWL[[1]], "model")
+names(tblWL) = c("model", "200K", "2K")
+tblWL
+View(tblWL)
+ttblWL = as_tibble(cbind(nms = names(tblWL), t(tblWL)))
+write.csv(ttblWL, file = "table/Lipstick.csv")
+write.csv()
 p=compare_performance(files[str_detect(files, "Wearing_Lipstick")])
 View(p[[1]])
